@@ -32,7 +32,7 @@ public class ActivityGroupStudyResponseDto {
     private LocalDateTime createdAt;
 
     public static ActivityGroupStudyResponseDto create(ActivityGroup activityGroup, List<GroupMember> groupMembers,
-                                                       List<ActivityGroupBoard> boards, List<GroupMemberResponseDto> groupMemberResponseDtos, boolean isOwner) {
+                                                       List<ActivityGroupBoardResponseDto> boards, List<GroupMemberResponseDto> groupMemberResponseDtos, boolean isOwner) {
         return ActivityGroupStudyResponseDto.builder()
                 .id(activityGroup.getId())
                 .category(activityGroup.getCategory())
@@ -43,7 +43,7 @@ public class ActivityGroupStudyResponseDto {
                 .imageUrl(activityGroup.getImageUrl())
                 .groupMembers(groupMemberResponseDtos)
                 .curriculum(activityGroup.getCurriculum())
-                .activityGroupBoards(boards.stream().map(ActivityGroupBoardResponseDto::toDto).toList())
+                .activityGroupBoards(boards)
                 .isOwner(isOwner)
                 .createdAt(activityGroup.getCreatedAt())
                 .build();

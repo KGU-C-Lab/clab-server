@@ -57,7 +57,6 @@ public class ActivityGroupBoard extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ActivityGroupBoardCategory category;
 
-    @Size(min = 1, max = 100, message = "{size.board.title}")
     private String title;
 
     @Column(columnDefinition = "TEXT")

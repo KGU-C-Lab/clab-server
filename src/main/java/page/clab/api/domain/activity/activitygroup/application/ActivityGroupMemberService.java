@@ -23,6 +23,7 @@ import page.clab.api.domain.activity.activitygroup.domain.GroupSchedule;
 import page.clab.api.domain.activity.activitygroup.dto.param.ActivityGroupDetails;
 import page.clab.api.domain.activity.activitygroup.dto.param.GroupScheduleDto;
 import page.clab.api.domain.activity.activitygroup.dto.request.ApplyFormRequestDto;
+import page.clab.api.domain.activity.activitygroup.dto.response.ActivityGroupBoardResponseDto;
 import page.clab.api.domain.activity.activitygroup.dto.response.ActivityGroupProjectResponseDto;
 import page.clab.api.domain.activity.activitygroup.dto.response.ActivityGroupResponseDto;
 import page.clab.api.domain.activity.activitygroup.dto.response.ActivityGroupStatusResponseDto;
@@ -30,6 +31,7 @@ import page.clab.api.domain.activity.activitygroup.dto.response.ActivityGroupStu
 import page.clab.api.domain.activity.activitygroup.dto.response.GroupMemberResponseDto;
 import page.clab.api.domain.activity.activitygroup.exception.AlreadyAppliedException;
 import page.clab.api.domain.activity.activitygroup.exception.InvalidCategoryException;
+import page.clab.api.domain.memberManagement.member.application.dto.shared.MemberBasicInfoDto;
 import page.clab.api.domain.memberManagement.member.domain.Member;
 import page.clab.api.external.memberManagement.member.application.port.ExternalRetrieveMemberUseCase;
 import page.clab.api.external.memberManagement.notification.application.port.ExternalSendNotificationUseCase;
@@ -69,10 +71,18 @@ public class ActivityGroupMemberService {
                 .map(groupMember -> GroupMemberResponseDto.toDto(externalRetrieveMemberUseCase.findByIdOrThrow(groupMember.getMemberId()), groupMember))
                 .toList();
 
+        List<ActivityGroupBoardResponseDto> activityGroupResponseDtos =
+                details.getActivityGroupBoards().stream()
+                        .map(board -> {
+                            MemberBasicInfoDto memberBasicInfoDto = externalRetrieveMemberUseCase.getCurrentMemberBasicInfo();
+                            return ActivityGroupBoardResponseDto.toDto(board, memberBasicInfoDto);
+                        })
+                        .toList();
+
         if (details.getActivityGroup().isStudy()) {
-            return ActivityGroupStudyResponseDto.create(details.getActivityGroup(), details.getGroupMembers(), details.getActivityGroupBoards(), groupMemberResponseDtos, isOwner);
+            return ActivityGroupStudyResponseDto.create(details.getActivityGroup(), details.getGroupMembers(), activityGroupResponseDtos, groupMemberResponseDtos, isOwner);
         } else if (details.getActivityGroup().isProject()) {
-            return ActivityGroupProjectResponseDto.create(details.getActivityGroup(), details.getGroupMembers(), details.getActivityGroupBoards(), groupMemberResponseDtos, isOwner);
+            return ActivityGroupProjectResponseDto.create(details.getActivityGroup(), details.getGroupMembers(), activityGroupResponseDtos, groupMemberResponseDtos, isOwner);
         } else {
             throw new InvalidCategoryException("해당 카테고리가 존재하지 않습니다.");
         }

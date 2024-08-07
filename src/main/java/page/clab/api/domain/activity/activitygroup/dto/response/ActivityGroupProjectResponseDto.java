@@ -36,7 +36,7 @@ public class ActivityGroupProjectResponseDto {
     private LocalDateTime createdAt;
 
     public static ActivityGroupProjectResponseDto create(ActivityGroup activityGroup, List<GroupMember> groupMembers,
-                                                         List<ActivityGroupBoard> boards, List<GroupMemberResponseDto> groupMemberResponseDtos, boolean isOwner) {
+                                                         List<ActivityGroupBoardResponseDto> boards, List<GroupMemberResponseDto> groupMemberResponseDtos, boolean isOwner) {
         return ActivityGroupProjectResponseDto.builder()
                 .id(activityGroup.getId())
                 .category(activityGroup.getCategory())
@@ -50,7 +50,7 @@ public class ActivityGroupProjectResponseDto {
                 .endDate(activityGroup.getEndDate())
                 .techStack(activityGroup.getTechStack())
                 .githubUrl(activityGroup.getGithubUrl())
-                .activityGroupBoards(boards.stream().map(ActivityGroupBoardResponseDto::toDto).toList())
+                .activityGroupBoards(boards)
                 .isOwner(isOwner)
                 .createdAt(activityGroup.getCreatedAt())
                 .build();

@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import page.clab.api.domain.activity.activitygroup.domain.ActivityGroupBoard;
 import page.clab.api.domain.activity.activitygroup.domain.ActivityGroupBoardCategory;
+import page.clab.api.domain.memberManagement.member.application.dto.shared.MemberBasicInfoDto;
+import page.clab.api.domain.memberManagement.member.application.dto.shared.MemberDetailedInfoDto;
 import page.clab.api.global.common.file.dto.response.UploadedFileResponseDto;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,8 @@ import java.util.List;
 public class ActivityGroupBoardChildResponseDto {
 
     private Long id;
+    private String memberId;
+    private String memberName;
     private ActivityGroupBoardCategory category;
     private String title;
     private String content;
@@ -23,9 +27,11 @@ public class ActivityGroupBoardChildResponseDto {
     private List<UploadedFileResponseDto> files;
     private List<ActivityGroupBoardChildResponseDto> children;
 
-    public static ActivityGroupBoardChildResponseDto toDto(ActivityGroupBoard board) {
+    public static ActivityGroupBoardChildResponseDto toDto(ActivityGroupBoard board, MemberBasicInfoDto memberBasicInfoDto, List<ActivityGroupBoardChildResponseDto> childrenDtos) {
         return ActivityGroupBoardChildResponseDto.builder()
                 .id(board.getId())
+                .memberId(memberBasicInfoDto.getMemberId())
+                .memberName(memberBasicInfoDto.getMemberName())
                 .category(board.getCategory())
                 .title(board.getTitle())
                 .content(board.getContent())
@@ -33,7 +39,7 @@ public class ActivityGroupBoardChildResponseDto {
                 .updatedAt(board.getUpdatedAt())
                 .createdAt(board.getCreatedAt())
                 .files(UploadedFileResponseDto.toDto(board.getUploadedFiles()))
-                .children(board.getChildren().stream().map(ActivityGroupBoardChildResponseDto::toDto).toList())
+                .children(childrenDtos)
                 .build();
     }
 }

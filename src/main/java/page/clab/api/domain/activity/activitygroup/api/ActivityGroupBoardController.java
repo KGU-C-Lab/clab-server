@@ -42,11 +42,11 @@ public class ActivityGroupBoardController {
     private final PageableUtils pageableUtils;
 
     @Operation(summary = "[U] 활동 그룹 게시판 생성", description = "ROLE_USER 이상의 권한이 필요함<br><br>" +
-            "활동 그룹 게시판 카테고리별 requestDto에 들어가야 할 필수내용과 (선택)내용입니다.<br><br>" +
-            "공지사항, 주차별활동 : 카테고리, 제목, 내용, 첨부파일 경로 리스트(선택)<br>" +
-            "과제 : 부모 게시판(주차별활동), 카테고리, 제목, 내용, 마감일자, 첨부파일 경로 리스트(선택)<br>" +
-            "제출 : 부모 게시판(과제), 첨부파일 경로 리스트<br>" +
-            "피드백 : 부모 게시판(제출), 카테고리, 내용 , 첨부파일 경로 리스트(선택)"
+            "활동 그룹 게시판 카테고리별 requestDto에 들어가야 할 필수내용입니다.<br><br>" +
+            "공지사항, 주차별활동 : 카테고리 <br>" +
+            "과제 : 부모 게시판(주차별활동), 카테고리, 마감일자<br>" +
+            "제출 : 부모 게시판(과제), 카테고리<br>" +
+            "피드백 : 부모 게시판(제출), 카테고리"
     )
     @Secured({ "ROLE_USER", "ROLE_ADMIN", "ROLE_SUPER" })
     @PostMapping("")
