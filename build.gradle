@@ -95,7 +95,7 @@ dependencies {
     // XSS Filter
     implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1' // Lucy XSS Servlet Filter
     implementation 'com.navercorp.lucy:lucy-xss:1.6.3' // Lucy XSS Filter
-    implementation 'org.apache.commons:commons-text:1.13.0' // Apache Commons Text
+    implementation 'org.apache.commons:commons-text:1.14.0' // Apache Commons Text
 
     // Image
     implementation 'commons-io:commons-io:2.18.0'
