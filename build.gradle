@@ -85,7 +85,7 @@ dependencies {
 
     // IPInfo
     implementation 'io.ipinfo:ipinfo-spring:0.3.1' // IPInfo Spring
-    implementation 'io.ipinfo:ipinfo-api:3.0.0' // IPInfo API
+    implementation 'io.ipinfo:ipinfo-api:3.1.0' // IPInfo API
 
     // Slack
     implementation 'com.slack.api:slack-api-model:1.44.2'
